@@ -20,13 +20,23 @@ steps:
   displayName: 'Run a multi-line script'
 
 - script: |
+    echo "========================================"
+    echo "pwd"
+    echo "========================================"
     pwd
+    echo "========================================"
+    echo "printenv"
+    echo "========================================"
     printenv
+    echo "========================================"
+    echo "tree"
+    echo "========================================"
     tree .
   displayName: 'Print environment'
 
 - script: |
     terraform version
+    terraform -chdir=infra init
   displayName: 'Terraform version'
 #
 #- task: TerraformInstaller@0
