@@ -18,6 +18,17 @@ steps:
     echo See https://aka.ms/yaml
     terraform version
   displayName: 'Run a multi-line script'
+
+
+- script: |
+    pwd
+    printenv
+  displayName: 'Run a multi-line script'
+
+
+- script: |
+    terraform version
+  displayName: 'Run a multi-line script'
 #
 #- task: TerraformInstaller@0
 #  displayName: install terraform
