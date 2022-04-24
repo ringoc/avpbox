@@ -19,41 +19,41 @@ variable "vnet" {
           os_type        = "windows"
           vm_name = null
         }
-        sharedservicesubnet = {
-          name           = "sharedservicesubnet"
-          address_prefix = "10.20.10.0/24"
-          include_vm     = false
-          os_type        = "windows"
-          vm_name = null
-        }
-        adsubnet = {
-          name           = "adsubnet"
-          address_prefix = "10.20.1.0/24"
-          include_vm     = false
-          os_type        = "windows"
-          vm_name = null
-        }
-        mgmtsubnet = {
-          name           = "mgmtsubnet"
-          address_prefix = "10.20.99.0/24"
-          include_vm     = true
-          os_type        = "windows"
-          vm_name = "jumphost"
-        }
-        databasesubnet = {
-          name           = "databasesubnet"
-          address_prefix = "10.20.20.0/24"
-          include_vm     = false
-          os_type        = "windows"
-          vm_name = null
-        }
-        publicwebservicesubnet = {
-          name           = "publicwebservicesubnet"
-          address_prefix = "10.20.30.0/24"
-          include_vm     = false
-          os_type        = "windows"
-          vm_name = null
-        }
+#        sharedservicesubnet = {
+#          name           = "sharedservicesubnet"
+#          address_prefix = "10.20.10.0/24"
+#          include_vm     = false
+#          os_type        = "windows"
+#          vm_name = null
+#        }
+#        adsubnet = {
+#          name           = "adsubnet"
+#          address_prefix = "10.20.1.0/24"
+#          include_vm     = false
+#          os_type        = "windows"
+#          vm_name = null
+#        }
+#        mgmtsubnet = {
+#          name           = "mgmtsubnet"
+#          address_prefix = "10.20.99.0/24"
+#          include_vm     = true
+#          os_type        = "windows"
+#          vm_name = "jumphost"
+#        }
+#        databasesubnet = {
+#          name           = "databasesubnet"
+#          address_prefix = "10.20.20.0/24"
+#          include_vm     = false
+#          os_type        = "windows"
+#          vm_name = null
+#        }
+#        publicwebservicesubnet = {
+#          name           = "publicwebservicesubnet"
+#          address_prefix = "10.20.30.0/24"
+#          include_vm     = false
+#          os_type        = "windows"
+#          vm_name = null
+#        }
       }
     }
     manufacturing = {
@@ -93,22 +93,22 @@ variable "vnet" {
         }
       }
     }
-    research = {
-      name          = "researchspokevnet"
-      location      = "australiaeast"
-      type          = "spoke"
-      address_space = ["10.40.0.0/16"]
-      peering       = []
-      subnet = {
-        researchsystemsubnet = {
-          vnet           = "research"
-          name           = "researchsystemsubnet"
-          address_prefix = "10.40.0.0/24"
-          include_vm     = false
-          os_type        = "windows"
-          vm_name = null
-        }
-      }
-    }
+#    research = {
+#      name          = "researchspokevnet"
+#      location      = "australiaeast"
+#      type          = "spoke"
+#      address_space = ["10.40.0.0/16"]
+#      peering       = []
+#      subnet = {
+#        researchsystemsubnet = {
+#          vnet           = "research"
+#          name           = "researchsystemsubnet"
+#          address_prefix = "10.40.0.0/24"
+#          include_vm     = false
+#          os_type        = "windows"
+#          vm_name = null
+#        }
+#      }
+#    }
   }
 }
