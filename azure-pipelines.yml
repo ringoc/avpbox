@@ -30,6 +30,7 @@ steps:
 - script: |
     terraform version
     terraform -chdir=infra init
+    terraform -chdir=infra plan -outplan plan.tfplan
   displayName: 'Terraform version'
 #
 #- task: TerraformInstaller@0
