@@ -25,7 +25,11 @@ resource "azurerm_resource_group" "default" {
   location = each.value.location
 }
 
+data "azurerm_key_vault" "default" {
+  name                = "tenancykv"
+  resource_group_name = "tenancytfstorage"
+}
 data "azurerm_key_vault_secret" "default" {
   name      = "vmpassword"
-  key_vault_id = "https://tenancykv.vault.azure.net/"
+  key_vault_id = data.azurerm_key_vault.default.id
 }

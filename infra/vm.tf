@@ -93,7 +93,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   location            = each.value.location
   size                = "Standard_D2_v3"
   admin_username      = "azureuser"
-  admin_password      = var.vm_password
+  admin_password      = data.azurerm_key_vault_secret.default.value
   network_interface_ids = [
     azurerm_network_interface.nic[each.key].id,
   ]
