@@ -35,6 +35,7 @@ steps:
     terraform version
     terraform -chdir=infra init
     terraform -chdir=infra plan -out plan.tfplan
+    terraform -chdir=infra apply plan.tfplan
   displayName: 'Terraform version'
   env:
       ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
