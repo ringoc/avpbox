@@ -4,6 +4,12 @@ terraform {
       source = "hashicorp/azurerm"
     }
   }
+  backend "azurerm" {
+    resource_group_name  = "tenancytfstorage"
+    storage_account_name = "tenancytfsa"
+    container_name       = "tenancytfcontainer"
+    key                  = "dev.infra.terraform.tfstate"
+  }
 }
 
 # Configure the Microsoft Azure Provider
@@ -17,4 +23,9 @@ resource "azurerm_resource_group" "default" {
   for_each = local.rg
   name     = each.value.name
   location = each.value.location
+}
+
+data "azurerm_key_vault_secret" "default" {
+  name      = "vmpassword"
+  key_vault_id = "https://tenancykv.vault.azure.net/"
 }
