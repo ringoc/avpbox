@@ -34,22 +34,22 @@ steps:
     export ARM_TENANT_ID=$(ARM_TENANT_ID)
     terraform version
     terraform -chdir=infra init
-    terraform -chdir=infra plan -out plan.tfplan
-    terraform -chdir=infra apply plan.tfplan
   displayName: 'Terraform Init'
   env:
       ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
 
 - script: |
-    export ARM_CLIENT_ID=$(ARM_CLIENT_ID)
-    export ARM_CLIENT_SECRET=$(ARM_CLIENT_SECRET)
-    export ARM_SUBSCRIPTION_ID=$(ARM_SUBSCRIPTION_ID)
-    export ARM_TENANT_ID=$(ARM_TENANT_ID)
     terraform -chdir=infra plan -out plan.tfplan
-    terraform -chdir=infra apply plan.tfplan
-  displayName: 'Terraform Plan and Apply'
+  displayName: 'Terraform Plan'
   env:
       ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+
+- script: |
+      terraform -chdir=infra apply plan.tfplan
+  displayName: 'Terraform Apply'
+  env:
+      ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+
 
 #
 #- task: TerraformInstaller@0
