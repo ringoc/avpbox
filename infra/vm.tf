@@ -111,7 +111,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   source_image_reference {
     publisher = "OpenLogic"
     offer     = "CentOS"
-    sku       = "8_4"
+    sku       = "7_9"
     version   = "latest"
   }
 

@@ -66,9 +66,9 @@ variable "vnet" {
         manufacturingsystemsubnet = {
           name           = "manufacturingsystemsubnet"
           address_prefix = "10.30.10.0/24"
-          include_vm     = false
+          include_vm     = true
           os_type        = "linux"
-          vm_name = "centos8"
+          vm_name        = "centos79"
         }
         sensorsubnet1 = {
           name           = "sensorsubnet1"
