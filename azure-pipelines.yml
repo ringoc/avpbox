@@ -36,9 +36,21 @@ steps:
     terraform -chdir=infra init
     terraform -chdir=infra plan -out plan.tfplan
     terraform -chdir=infra apply plan.tfplan
-  displayName: 'Terraform version'
+  displayName: 'Terraform Init'
   env:
       ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+
+- script: |
+    export ARM_CLIENT_ID=$(ARM_CLIENT_ID)
+    export ARM_CLIENT_SECRET=$(ARM_CLIENT_SECRET)
+    export ARM_SUBSCRIPTION_ID=$(ARM_SUBSCRIPTION_ID)
+    export ARM_TENANT_ID=$(ARM_TENANT_ID)
+    terraform -chdir=infra plan -out plan.tfplan
+    terraform -chdir=infra apply plan.tfplan
+  displayName: 'Terraform Plan and Apply'
+  env:
+      ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+
 #
 #- task: TerraformInstaller@0
 #  displayName: install terraform
