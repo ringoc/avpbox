@@ -41,10 +41,14 @@ steps:
 - script: |
     terraform -chdir=infra plan -out plan.tfplan
   displayName: 'Terraform Plan'
+  env:
+      ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
 
 - script: |
       terraform -chdir=infra apply plan.tfplan
   displayName: 'Terraform Apply'
+  env:
+      ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
 
 
 #
