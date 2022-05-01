@@ -1,3 +1,11 @@
+resource "azurerm_resource_group" "vmrg" {
+  for_each = {
+    for subnet in local.subnets : "${subnet.vnet}-${subnet.name}" => subnet
+    if subnet.name != "GatewaySubnet" && local.is_provisioning_vm && subnet.include_vm
+  }
+  location = each.value.location
+  name     = "${each.value.rg}${each.value.vm_name}"
+}
 resource "azurerm_network_interface" "nic" {
   for_each = {
     for subnet in local.subnets : "${subnet.vnet}-${subnet.name}" => subnet
@@ -5,7 +13,7 @@ resource "azurerm_network_interface" "nic" {
   }
   name                = each.value.vm_name
   location            = each.value.location
-  resource_group_name = each.value.rg
+  resource_group_name = "${each.value.rg}${each.value.vm_name}"
 
   ip_configuration {
     name                          = "internal"
@@ -25,7 +33,7 @@ resource "azurerm_public_ip" "pubip" {
     if subnet.name != "GatewaySubnet" && local.is_provisioning_vm && subnet.include_vm 
   }
   name                = each.value.vm_name
-  resource_group_name = each.value.rg
+  resource_group_name = "${each.value.rg}${each.value.vm_name}"
   location            = each.value.location
   allocation_method   = "Static"
 }
@@ -36,7 +44,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
     if subnet.name != "GatewaySubnet" && local.is_provisioning_vm && subnet.include_vm && subnet.os_type == "windows"
   }
   name                = each.value.vm_name
-  resource_group_name = each.value.rg
+  resource_group_name = "${each.value.rg}${each.value.vm_name}"
   location            = each.value.location
   size                = "Standard_D2_v3"
   admin_username      = "azureuser"
@@ -89,7 +97,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     if subnet.name != "GatewaySubnet" && local.is_provisioning_vm && subnet.include_vm && subnet.os_type == "linux"
   }
   name                = each.value.vm_name
-  resource_group_name = each.value.rg
+  resource_group_name = "${each.value.rg}${each.value.vm_name}"
   location            = each.value.location
   size                = "Standard_D2_v3"
   admin_username      = "azureuser"
