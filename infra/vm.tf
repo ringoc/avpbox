@@ -23,7 +23,8 @@ resource "azurerm_network_interface" "nic" {
   }
 
   depends_on = [
-    azurerm_public_ip.pubip
+    azurerm_public_ip.pubip,
+    azurerm_resource_group.vmrg
   ]
 }
 
@@ -36,6 +37,9 @@ resource "azurerm_public_ip" "pubip" {
   resource_group_name = "${each.value.rg}${each.value.vm_name}"
   location            = each.value.location
   allocation_method   = "Static"
+  depends_on = [
+    azurerm_resource_group.vmrg
+  ]
 }
 
 resource "azurerm_windows_virtual_machine" "vm" {
@@ -73,6 +77,12 @@ resource "azurerm_windows_virtual_machine" "vm" {
   boot_diagnostics {
     storage_account_uri = "https://${each.value.key}sa.blob.core.windows.net/" 
   }
+
+  depends_on = [
+    azurerm_resource_group.vmrg,
+    azurerm_network_interface.nic,
+    azurerm_public_ip.pubip
+  ]
 }
 
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "schedule" {
@@ -127,6 +137,11 @@ resource "azurerm_linux_virtual_machine" "vm" {
   boot_diagnostics {
     storage_account_uri = "https://${each.value.key}sa.blob.core.windows.net/" 
   }
+  depends_on = [
+    azurerm_resource_group.vmrg,
+    azurerm_network_interface.nic,
+    azurerm_public_ip.pubip
+  ]
 }
 
 
@@ -166,7 +181,7 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "windows" {
 
 # # output "virtual_machine_id" {
 
-#   #   for_each = { 
+#   #   for_each = {
 #   #     for subnet in local.subnets: "${subnet.vnet}-${subnet.name}" => subnet
 #   #     if subnet.name != "GatewaySubnet" && local.is_provisioning_vm
 #   #   }
