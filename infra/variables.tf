@@ -98,7 +98,7 @@ variable "vnet" {
       location      = "australiaeast"
       type          = "spoke"
       address_space = ["10.40.0.0/16"]
-      peering       = ["coreservice"]
+      peering       = []
       subnet = {
         researchsystemsubnet = {
           vnet           = "research"
