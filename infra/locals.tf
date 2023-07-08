@@ -1,5 +1,5 @@
 locals {
-  is_provisioning_vm = true
+  is_provisioning_vm = false
 
   rg = {
     coreservice = {
